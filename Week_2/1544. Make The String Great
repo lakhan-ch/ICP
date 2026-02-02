@@ -1,0 +1,25 @@
+1544. Make The String Great
+
+https://leetcode.com/problems/make-the-string-great/submissions/1889548140/
+
+class Solution {
+    public String makeGood(String s) {
+        Stack<Character> st = new Stack<>();
+        for(char ch : s.toCharArray()){
+            if(!st.isEmpty()){
+                char a = st.peek();
+                if(((Character.isUpperCase(ch) && Character.isLowerCase(a)) || (Character.isUpperCase(a) && Character.isLowerCase(ch))) && (Character.toLowerCase(ch) == Character.toLowerCase(a))) {
+                    st.pop();
+                    continue; 
+                }
+            }
+            st.push(ch);
+        }
+        StringBuilder str = new StringBuilder();
+        while(!st.isEmpty()){
+            str.append(st.pop());
+        }
+
+        return str.reverse().toString();
+    }
+}
