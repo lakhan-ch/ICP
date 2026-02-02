@@ -1,0 +1,30 @@
+1856. Maximum Subarray Min-Product
+
+https://leetcode.com/problems/maximum-subarray-min-product/submissions/1890687075/
+
+    class Solution {
+        public int maxSumMinProduct(int[] nums) {
+            int n=nums.length;
+            long pre[]= new long[n+1];
+            for(int i=0;i<n;i++){
+                pre[i+1]=pre[i]+nums[i];
+            }
+
+            long max=0;
+            Stack<Integer>s = new Stack<>();
+            for(int i=0;i<=nums.length;i++){
+                int ele=i==n? 0:nums[i];
+                while(!s.isEmpty() && nums[s.peek()]>ele){
+                    int minIdx=s.pop();
+                    int left=s.isEmpty()? -1:s.peek();
+                    int right=i;
+
+                    long sum=pre[right]-pre[left+1];
+                    long prd=nums[minIdx]*sum;
+                    max=Math.max(max,prd);
+                }
+                s.push(i);
+            }
+            return (int)(max%1000000007);
+        }
+    }
