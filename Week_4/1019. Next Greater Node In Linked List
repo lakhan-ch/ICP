@@ -1,0 +1,28 @@
+1019. Next Greater Node In Linked List
+
+https://leetcode.com/problems/next-greater-node-in-linked-list/submissions/1906589131/
+
+class Solution {
+    public int[] nextLargerNodes(ListNode head) {
+        ArrayList<Integer> al = new ArrayList<>();
+        ListNode temp=head;
+        while(temp!=null){
+            al.add(temp.val);
+            temp=temp.next;
+        }
+        int n=al.size();
+        int arr[]= new int[n];
+        Stack<Integer> s = new Stack<>();
+        for(int i=0;i<n;i++){
+            int cur=al.get(i);
+            while(!s.isEmpty() && al.get(s.peek())<cur){
+                arr[s.pop()]=cur;
+            }
+            if(i<n){
+                s.push(i);
+            }
+        }
+        
+        return arr;
+    }
+}
